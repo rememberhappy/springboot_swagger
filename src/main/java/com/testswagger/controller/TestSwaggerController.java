@@ -1,10 +1,12 @@
 package com.testswagger.controller;
 
+import com.testswagger.domain.Student;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.util.Date;
 
@@ -13,7 +15,7 @@ import java.util.Date;
  * @Date 2021/5/10:15:47
  * @Description:
  */
-@Api(tags="说明该类的作用，可以在UI界面上看到的注解", value = "API - VehiclesController:该参数没什么意义，在UI界面上也看到", description = "车辆模块接口详情")
+@Api(tags = "说明该类的作用，可以在UI界面上看到的注解", value = "API - VehiclesController:该参数没什么意义，在UI界面上也看到", description = "车辆模块接口详情")
 @RestController
 @RequestMapping("/vehicles")
 public class TestSwaggerController {
@@ -159,7 +161,7 @@ public class TestSwaggerController {
         return map;
     }
 
-    @ApiOperation(value="根据ID查找相关信息")
+    @ApiOperation(value = "根据ID查找相关信息")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "id", value = "id", required = true,
                     dataType = "string", paramType = "path", defaultValue = "12344444")
@@ -172,5 +174,23 @@ public class TestSwaggerController {
         ModelMap map = new ModelMap();
         map.addAttribute("RequestMethod.DELETE", id);
         return map;
+    }
+
+    @ApiOperation(value = "编辑公告", notes = "编辑公告", httpMethod = "POST")
+    @RequestMapping(value = "/edit", method = RequestMethod.POST)
+    public String edit(
+            @ApiParam(name = "title", value = "公告标题", required = true) @RequestParam("title") String title,
+            @ApiParam(name = "content", value = "公告内容", required = true) @RequestParam("content") String content) {
+        return null;
+    }
+
+    @ApiOperation(value = "学生VO参数接收", notes = "学生VO参数接收", httpMethod = "POST")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "student", value = "student", required = true,
+                    dataType = "Student", paramType = "query")
+    })
+    @RequestMapping(value = "/student", method = RequestMethod.POST)
+    public String student(@RequestBody Student student) {
+        return null;
     }
 }
